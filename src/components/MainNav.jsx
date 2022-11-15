@@ -50,6 +50,10 @@ const MainNav = () => {
                         <i className="fa fa-user-circle" />
                         Sign In
                     </NavLink>
+                    <NavLink className="main-nav-item" to="/register">
+                        <i className="fa fa-user-plus" />
+                        Register
+                    </NavLink>
                 </div>
             </nav>
         </>

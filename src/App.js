@@ -5,6 +5,7 @@ import React from 'react';
 import Index from './pages/index/Index';
 import SignIn from './pages/signin/SignIn';
 import User from './pages/user/User';
+import Register from './pages/register/Register';
 
 const App = () => {
   return (
@@ -12,9 +13,9 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Index />} />
         <Route path="/sign-in" element={<SignIn />} />
-        {/* <Route path="/register" element={<Register />} /> */}
+        <Route path="/register" element={<Register />} />
         <Route path="/user" element={<User />} />
-        {/* <Route path="*" element={<E404 />} /> */}
+        <Route path="*" element={<Index />} />
       </Routes>
     </BrowserRouter>
   );
