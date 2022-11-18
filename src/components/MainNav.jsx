@@ -25,9 +25,9 @@ const MainNav = () => {
                             <i className="fa fa-user-circle" />
                             Tony
                         </NavLink>
-                        <NavLink className="main-nav-item" to="/sign-in">
-                        <i class="fa fa-sign-out"></i>
-          Sign Out
+                        <NavLink className="main-nav-item" to="/">
+                            <i className="fa fa-sign-out"></i>
+                            Sign Out
                         </NavLink>
                     </div>
                 </nav>

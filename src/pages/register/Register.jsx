@@ -15,8 +15,12 @@ const Register = () => {
                     <h1>Register</h1>
                     <form>
                         <div className="input-wrapper">
-                            <label htmlFor="username">Username</label>
-                            <input type="text" id="username" />
+                            <label htmlFor="firstName">First Name</label>
+                            <input type="text" id="firstName" />
+                        </div>
+                        <div className="input-wrapper">
+                            <label htmlFor="lastName">Last Name</label>
+                            <input type="text" id="lastName" />
                         </div>
                         <div className="input-wrapper">
                             <label htmlFor="email">Email</label>
@@ -36,7 +40,7 @@ const Register = () => {
                         Create account
                         </a>
                         {/* SHOULD BE THE BUTTON BELOW */}
-                        {/* <button class="sign-in-button">Sign In</button> */}
+                        {/* <button className="sign-in-button">Sign In</button> */}
                         {/*  */}
                     </form>
                 </section>

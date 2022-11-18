@@ -46,3 +46,12 @@
     padding: 5px;
     font-size: 1.2rem;
 }
+
+.wrong-login{
+    color: red;
+    text-decoration: underline;
+}
+
+.wrong-label input{
+    border: 1px solid red;
+}
