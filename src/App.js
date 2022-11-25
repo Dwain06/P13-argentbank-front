@@ -3,10 +3,11 @@ import React from 'react';
 
 // Import pages
 import Index from './pages/index/Index';
-import SignIn from './pages/signin/SignIn';
-import User from './pages/user/User';
+import Profile from './pages/profile/Profile';
 import Register from './pages/register/Register';
-import PrivateRoutes from './utils/PrivateRoutes';
+import PrivateRoutes from './components/PrivateRoutes';
+import Login from './pages/login/Login';
+import LoginRoutes from './components/LoginRoutes';
 
 const App = () => {
 
@@ -14,14 +15,17 @@ const App = () => {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Index />} exact />
-        <Route path="/sign-in" element={<SignIn />} />
-        <Route path="/register" element={<Register />} />
         <Route path="*" element={<Index />} />
 
-        <Route element={<PrivateRoutes />}>
-              <Route path="/user" element={<User />} />
+        <Route element={<LoginRoutes />}>
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
         </Route>
-        
+
+        <Route element={<PrivateRoutes />}>
+              <Route path="/profile" element={<Profile />} />
+        </Route>
+
       </Routes>
     </BrowserRouter>
   );

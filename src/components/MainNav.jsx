@@ -1,14 +1,21 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
+
+// Import functions
+import { isToken, logout } from '../utils/login'
 
 // Import images
 import argentBankLogo from "../assets/logo/argentBankLogo.png";
 
 const MainNav = () => {
 
-    let isUserConnected = false;
+    const [auth, setAuth] = useState(false)
 
-    if (isUserConnected) {
+    useEffect(() => {
+        isToken() ? setAuth(true) : setAuth(false);
+    }, [auth])
+
+    if (auth) {
         return (
             <>
                 <nav className="main-nav">
@@ -21,13 +28,13 @@ const MainNav = () => {
                         <h1 className="sr-only">Argent Bank</h1>
                     </NavLink>
                     <div>
-                        <NavLink className="main-nav-item" to="/sign-in">
+                        <NavLink className="main-nav-item" to="/profile">
                             <i className="fa fa-user-circle" />
                             Tony
                         </NavLink>
-                        <NavLink className="main-nav-item" to="/">
+                        <NavLink className="main-nav-item" to="/" onClick={() => {setAuth(false); logout()}}>
                             <i className="fa fa-sign-out"></i>
-                            Sign Out
+                            Logout
                         </NavLink>
                     </div>
                 </nav>
@@ -46,9 +53,9 @@ const MainNav = () => {
                     <h1 className="sr-only">Argent Bank</h1>
                 </NavLink>
                 <div>
-                    <NavLink className="main-nav-item" to="/sign-in">
+                    <NavLink className="main-nav-item" to="/login">
                         <i className="fa fa-user-circle" />
-                        Sign In
+                        Login
                     </NavLink>
                     <NavLink className="main-nav-item" to="/register">
                         <i className="fa fa-user-plus" />

@@ -1,15 +1,19 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 // Import images
 import icon_chat from "../../assets/img/icon_chat.png";
 import icon_money from "../../assets/img/icon_money.png";
 import icon_security from "../../assets/img/icon_security.png";
+
+// Import components
 import Footer from '../../components/Footer';
 import MainNav from '../../components/MainNav';
 
 const Index = () => {
 
-    document.title = "Argent Bank - Home page";
+    useEffect(() => {
+        document.title = "Argent Bank - Home page";
+    }, []);
 
     return (
         <>

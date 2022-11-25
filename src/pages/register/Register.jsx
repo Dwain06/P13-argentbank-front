@@ -1,10 +1,15 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+
+// Import components
 import Footer from '../../components/Footer';
 import MainNav from '../../components/MainNav';
 
+
 const Register = () => {
 
-    document.title = "Argent Bank - Register";
+    useEffect(() => {
+        document.title = "Argent Bank - Register";
+    }, []) 
 
     return (
         <>
