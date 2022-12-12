@@ -20,23 +20,6 @@ const Login = () => {
     const [error, setError] = useState(false);
     const [rememberLogin, setRememberLogin] = useState(false);
     const navigate = useNavigate();
-    
-    // async function loginUser(username, password) {
-    //     return axios
-    //     .post('http://localhost:3001/api/v1/user/login', { email: username, password: password })
-    //     .then(response => response.data.body.token)
-    //     // .then(token => console.log(token))
-    //     .catch(function (error) {
-    //         setError(true);})
-    // }
-
-    
-    // window.localStorage.setItem('authToken', token);
-
-    // function setTokenInAxios(token) {
-    //     axios.defaults.headers['Authorization'] = 'Bearer ' + token;
-    // }
-
 
     async function handleSubmit(e) {
         e.preventDefault();
@@ -44,19 +27,8 @@ const Login = () => {
         if (token.status === 200){
             navigate("/profile");
         } else {
-            setError(true)
+            setError(true);
         }
-
-
-        // const token = await loginUser(username, password, rememberLogin);
-        // if (rememberLogin) {
-        //     window.localStorage.setItem('authToken', token);
-        // } else {
-        //     window.sessionStorage.setItem('authToken', token);
-        // }
-
-        // console.log(token === error);
-        // if (token) navigate("/profile");
     }
 
     return (
