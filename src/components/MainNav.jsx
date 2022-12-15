@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 // Import functions
 import { isToken, logout } from '../utils/login'
@@ -9,6 +10,8 @@ import argentBankLogo from "../assets/logo/argentBankLogo.png";
 
 const MainNav = () => {
 
+    const userFirstName = useSelector((state) => state.userData.userData.firstName);
+    
     const [auth, setAuth] = useState(false)
 
     useEffect(() => {
@@ -30,7 +33,7 @@ const MainNav = () => {
                     <div>
                         <NavLink className="main-nav-item" to="/profile">
                             <i className="fa fa-user-circle" />
-                            Tony
+                            {userFirstName}
                         </NavLink>
                         <NavLink className="main-nav-item" to="/" onClick={() => {setAuth(false); logout()}}>
                             <i className="fa fa-sign-out"></i>

@@ -9,6 +9,7 @@ import PrivateRoutes from './components/PrivateRoutes';
 import Login from './pages/login/Login';
 import LoginRoutes from './components/LoginRoutes';
 
+
 const App = () => {
 
   return (

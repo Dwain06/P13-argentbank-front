@@ -13,8 +13,6 @@ export async function loginUser(username, password, rememberLogin) {
                 axios.defaults.headers['Authorization'] = 'Bearer ' + response.data.body.token;
             }
 
-
-
             return { "status": response.data.status, "token": response.data.body.token };
         })
         .catch(error => {
@@ -26,6 +24,7 @@ export function isToken() {
 
     let token = axios.defaults.headers['Authorization'];
 
+    // If token is undefined in axios : looking for it in local storage (remember me cheked at login)
     if (token === undefined) {
         if (window.localStorage.getItem('authToken') !== null) {
             token = window.localStorage.getItem('authToken');
@@ -35,6 +34,7 @@ export function isToken() {
         }
     }
 
+    // If token is defined in axios : looking if it's expired
     if (token !== undefined) {
         const decodedToken = jwtDecode(token);
 
@@ -42,7 +42,7 @@ export function isToken() {
             return true
         }
         else {
-            window.slocalStorage.removeItem('authToken');
+            window.localStorage.removeItem('authToken');
             return false;
         }
 

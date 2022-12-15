@@ -1,18 +1,46 @@
 import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 // Import components
 import Footer from '../../components/Footer';
 import MainNav from '../../components/MainNav';
+import { setUserData } from '../../feature/userDataSlice';
 
 // Import functions
 import { getProfile } from '../../utils/profile'
 
 const Profile = () => {
 
+    const dispatch = useDispatch();
+    const userData = useSelector((state) => state.userData.userData);
+    // console.log("useSelector", userData.userData);
+
     useEffect(() => {
         document.title = "Argent Bank - Profile page";
-        getProfile();        
+        // getProfile();
+        getUserData();
     }, []);
+
+    async function getUserData() {
+        const userData = await getProfile();
+        if (userData.status === 200) {
+            dispatch(setUserData(userData.userData))
+        } else {
+            console.log("Error", userData.status);
+        }
+    }
+
+    if (!userData) {
+        return (
+            <>
+                <MainNav />
+                <main className="main bg-dark">
+                    <p className="loading">Loading...</p>
+                </main>
+                <Footer />
+            </>
+        );
+    }
 
     return (
         <>
@@ -22,7 +50,7 @@ const Profile = () => {
                     <h1>
                         Welcome back
                         <br />
-                        Tony Jarvis!
+                        {userData?.firstName} {userData?.lastName}!
                     </h1>
                     <button className="edit-button">Edit Name</button>
                 </div>
