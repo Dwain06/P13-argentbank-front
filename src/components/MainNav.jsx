@@ -10,8 +10,8 @@ import argentBankLogo from "../assets/logo/argentBankLogo.png";
 
 const MainNav = () => {
 
-    const userFirstName = useSelector((state) => state.userData.userData.firstName);
-    
+    const userData = useSelector((state) => state.userData.userData);
+
     const [auth, setAuth] = useState(false)
 
     useEffect(() => {
@@ -33,7 +33,7 @@ const MainNav = () => {
                     <div>
                         <NavLink className="main-nav-item" to="/profile">
                             <i className="fa fa-user-circle" />
-                            {userFirstName}
+                            {userData?.firstName}
                         </NavLink>
                         <NavLink className="main-nav-item" to="/" onClick={() => {setAuth(false); logout()}}>
                             <i className="fa fa-sign-out"></i>

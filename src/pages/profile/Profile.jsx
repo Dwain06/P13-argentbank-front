@@ -1,10 +1,11 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import axios from 'axios';
 
 // Import components
 import Footer from '../../components/Footer';
 import MainNav from '../../components/MainNav';
-import { setUserData } from '../../feature/userDataSlice';
+import { editUserData, setUserData } from '../../feature/userDataSlice';
 
 // Import functions
 import { getProfile } from '../../utils/profile'
@@ -13,22 +14,44 @@ const Profile = () => {
 
     const dispatch = useDispatch();
     const userData = useSelector((state) => state.userData.userData);
-    // console.log("useSelector", userData.userData);
 
+    // Get user datas
     useEffect(() => {
         document.title = "Argent Bank - Profile page";
-        // getProfile();
         getUserData();
     }, []);
 
     async function getUserData() {
-        const userData = await getProfile();
-        if (userData.status === 200) {
-            dispatch(setUserData(userData.userData))
+        const getUserData = await getProfile();
+        if (getUserData.status === 200) {
+            dispatch(setUserData(getUserData.userData))
+            console.log("useSelector", userData);
         } else {
-            console.log("Error", userData.status);
+            console.log("Error", getUserData.status);
         }
     }
+
+    // Edit user name
+    const [edit, setEdit] = useState(false);
+    const [firstName, setFirstName] = useState();
+    const [lastName, setLastName] = useState();
+
+    const handleEdit = () => {
+
+        setEdit(false);
+
+        const data = {
+            "firstName": firstName? firstName : userData.firstName,
+            "lastName": lastName? lastName : userData.lastName
+        };
+        console.log(data);
+
+        axios
+        .put("http://localhost:3001/api/v1/user/profile", data)
+        .then(() => {
+            dispatch(editUserData(data));
+        });
+    };
 
     if (!userData) {
         return (
@@ -42,18 +65,45 @@ const Profile = () => {
         );
     }
 
+    // console.log("useSelector", userData);
     return (
         <>
             <MainNav />
             <main className="main bg-dark">
-                <div className="header">
-                    <h1>
-                        Welcome back
-                        <br />
-                        {userData?.firstName} {userData?.lastName}!
-                    </h1>
-                    <button className="edit-button">Edit Name</button>
-                </div>
+
+                {!edit ?
+                    <div className="header">
+                        <h1>
+                            Welcome back
+                            <br />
+                            {userData?.firstName} {userData?.lastName}!
+                        </h1>
+                        <button className="edit-button" onClick={() => setEdit(!edit)}>Edit Name</button>
+                    </div>
+                    :
+                    <div className="header">
+                        <h1>
+                            Welcome back
+                        </h1>
+                        <form className="edit-user-name">
+                            <div className="input-container">
+                                <div className="input-wrapper">
+                                    <label htmlFor="firstNameEdit">First Name</label>
+                                    <input type="text" id="firstNameEdit" autoComplete="off" defaultValue={userData?.firstName} onChange={e => setFirstName(e.target.value)} />
+                                </div>
+                                <div className="input-wrapper">
+                                    <label htmlFor="lastNameEdit">Last Name</label>
+                                    <input type="text" id="lastNameEdit" autoComplete="off" defaultValue={userData?.lastName} onChange={e => setLastName(e.target.value)} />
+                                </div>
+                            </div>
+                            <div className="validate-form">
+                                <button type="button" className="edit-button" onClick={() => handleEdit()}>Confirm</button>
+                                <button type="button" className="edit-button" onClick={() => setEdit(!edit)}>Cancel</button>
+                            </div>
+                        </form>
+                    </div>
+                }
+
                 <h2 className="sr-only">Accounts</h2>
                 <section className="account">
                     <div className="account-content-wrapper">
