@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import axios from 'axios';
 
 // Import components
 import Footer from '../../components/Footer';
@@ -8,7 +7,7 @@ import MainNav from '../../components/MainNav';
 import { editUserData, setUserData } from '../../feature/userDataSlice';
 
 // Import functions
-import { getProfile } from '../../utils/profile'
+import { editProfile, getProfile } from '../../utils/profile'
 
 const Profile = () => {
 
@@ -25,7 +24,6 @@ const Profile = () => {
         const getUserData = await getProfile();
         if (getUserData.status === 200) {
             dispatch(setUserData(getUserData.userData))
-            console.log("useSelector", userData);
         } else {
             console.log("Error", getUserData.status);
         }
@@ -44,13 +42,12 @@ const Profile = () => {
             "firstName": firstName? firstName : userData.firstName,
             "lastName": lastName? lastName : userData.lastName
         };
-        console.log(data);
 
-        axios
-        .put("http://localhost:3001/api/v1/user/profile", data)
-        .then(() => {
-            dispatch(editUserData(data));
-        });
+        // Update database server
+        editProfile(data);
+        // update redux store
+        dispatch(editUserData(data));
+
     };
 
     if (!userData) {
@@ -65,7 +62,6 @@ const Profile = () => {
         );
     }
 
-    // console.log("useSelector", userData);
     return (
         <>
             <MainNav />
