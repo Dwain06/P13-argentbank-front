@@ -82,13 +82,13 @@ const Register = () => {
         }
         if (inputFirstName.current.value.trim().length > 2) {
             cancelInputError("firstName");
-            data.firstName = inputPassword.current.value;
+            data.firstName = inputFirstName.current.value;
         } else {
             throwInputError("firstName", "Your firstname must contain at least 3 characters")
         }
         if (inputLastName.current.value.trim().length > 2) {
             cancelInputError("lastName");
-            data.lastName = inputPassword.current.value;
+            data.lastName = inputLastName.current.value;
         } else {
             throwInputError("lastName", "Your lastname must contain at least 3 characters")
         }
